@@ -1,16 +1,14 @@
 version: '3'
 services:
-  mysql:
+  db:
     build: ./db
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=123
     healthcheck:
       test: "exit 0"
-    ports:
-      - "3308:3306"
   docker_test:
     build: ./app
     depends_on:
-      - mysql
+      - db
     entrypoint:
       - /usr/local/bin/docker-entrypoint.sh

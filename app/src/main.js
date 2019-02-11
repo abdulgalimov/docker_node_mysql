@@ -13,10 +13,10 @@ let User;
 function connectDb() {
   console.log('connectDb');
   sequelize = new Sequelize({
-    host: 'mysql',
-    port: '3308',
+    host: 'db',
+    port: '3306',
     database: 'docker_test_db',
-    username: 'test_user',
+    username: 'root',
     password: '123',
     dialect: 'mysql',
     logging: onLog,
@@ -29,8 +29,7 @@ function connectDb() {
   User = sequelize.define('User', {
     name: Sequelize.STRING(128),
   });
-  console.log('User', User);
-//recreateTable(User);
+  // User.sync();
 }
 //
 async function run() {
@@ -38,14 +37,14 @@ async function run() {
   connectDb();
   const usersCount = await User.count();
   console.log('usersCount', usersCount);
-  /*
   if (!usersCount) {
     await User.create({
       name: 'test user'
     });
+  } else {
+    console.log("user name: ", (await User.findOne()).name);
   }
-  */
 }
 
-//setTimeout(run, 3000);
-run();
+setTimeout(run, 3000);
+// run();
