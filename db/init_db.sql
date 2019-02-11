@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS docker_test_db;
+GRANT ALL PRIVILEGES on "docker_test_db.*" TO 'test_user'@'%' IDENTIFIED BY '123' WITH GRANT OPTION;

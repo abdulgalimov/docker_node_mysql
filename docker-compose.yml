@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mysql:
+    build: ./db
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - "3308:3306"
+  docker_test:
+    build: ./app
+    depends_on:
+      - mysql
+    entrypoint:
+      - /usr/local/bin/docker-entrypoint.sh
